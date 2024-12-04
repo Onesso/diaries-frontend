@@ -1,6 +1,7 @@
 import React from "react";
 import { FaNoteSticky } from "react-icons/fa6";
 import { MdMarkunread } from "react-icons/md";
+import { Link } from "react-router";
 
 export default function BlogCard() {
   return (
@@ -8,12 +9,18 @@ export default function BlogCard() {
       <div className="card card-body">
         <span className="side-stick" style={{ backgroundColor: "blue" }}></span>
         <FaNoteSticky style={{ marginLeft: "auto", color: "blue" }} />
-        <h5
-          className="note-title text-truncate w-75 mb-0"
-          data-noteheading="Book a Ticket for Movie"
+        <Link
+          to="/blogs-detail"
+          style={{ textDecoration: "none", color: "black" }}
         >
-          Book a Ticket for Movie{" "}
-        </h5>
+          <h5
+            className="note-title text-truncate w-75 mb-0"
+            data-noteheading="Book a Ticket for Movie"
+          >
+            Book a Ticket for Movie{" "}
+          </h5>
+        </Link>
+
         <p className="note-date font-12 text-muted">11 March 2009</p>
         <div className="note-content">
           <p
@@ -25,7 +32,7 @@ export default function BlogCard() {
           </p>
         </div>
         <div className="d-flex align-items-center">
-          <a href="/notes-detail">
+          <a href="/blogs-detail">
             <span className="mr-1">
               <MdMarkunread
                 style={{ fontSize: "25px", cursor: "pointer", color: "blue" }}

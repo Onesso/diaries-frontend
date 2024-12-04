@@ -6,9 +6,9 @@ export default function NavBar() {
   return (
     <nav className="navbar bg-body-tertiary py-50" style={{ padding: "20px" }}>
       <div className="container d-flex justify-content-around">
-        <a className="navbar-brand" href="/">
+        <Link className="navbar-brand" to="/">
           <h4 style={{ fontWeight: "bold" }}>Diaries</h4>
-        </a>
+        </Link>
         <div className="d-flex">
           <div
             className="input-group input-group-sm"
@@ -27,11 +27,11 @@ export default function NavBar() {
           {/* <button className="btn btn-outline-primary btn-md" type="button">Add</button> */}
         </div>
 
-        <a href="/add-blog" style={{ textDecoration: "none" }}>
+        <Link to="/add-blog" style={{ textDecoration: "none" }}>
           <button className="btn btn-outline-primary btn-md" type="button">
             <FaSquarePlus /> Add Blog
           </button>
-        </a>
+        </Link>
       </div>
     </nav>
   );

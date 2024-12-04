@@ -1,6 +1,7 @@
 import React from "react";
 import "./AddBlogPage.css";
-export default function AddBlogPage() {
+
+export default function EditBlogPage() {
   return (
     <form>
       <h5>Add New Blog</h5>
