@@ -2,11 +2,12 @@ import React from "react";
 import Filter from "../Filter";
 import BlogCardContainer from "../BlogCardContainer";
 
-export default function Homepage() {
+
+export default function Homepage({blog}) {
   return (
     <>
       <Filter />
-      <BlogCardContainer />
+      <BlogCardContainer blog={blog}/>
     </>
   );
 }

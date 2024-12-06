@@ -7,7 +7,7 @@ export default function NavBar() {
     <nav className="navbar bg-body-tertiary py-50" style={{ padding: "20px" }}>
       <div className="container d-flex justify-content-around">
         <Link className="navbar-brand" to="/">
-          <h4 style={{ fontWeight: "bold" }}>Diaries</h4>
+          <h4 style={{ fontWeight: "bold" }}>FullStack Diaries</h4>
         </Link>
         <div className="d-flex">
           <div

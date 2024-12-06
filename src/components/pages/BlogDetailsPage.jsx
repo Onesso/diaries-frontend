@@ -2,49 +2,72 @@ import React from "react";
 import { BiSolidTrashAlt } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
 import "./BlogDetailsPage.css";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
+import moment from "moment";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Modal from "../Modal.jsx";
 
-export default function BlogDetails() {
+export default function BlogDetails({ deleteBlog }) {
+  const [blog, setBlog] = useState({});
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const { slug } = useParams();
+
+  const handleisOpen = () => {
+    setIsOpenModal(!isOpenModal);
+  };
+  useEffect(() => {
+    axios
+      .get(`http://127.0.0.1:8000/blog/${slug}`)
+      .then((res) => {
+        console.log(res.data);
+        setBlog(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  // formating time
+  const datetime = blog.updated;
+  const updatedDate = moment(datetime).format("MMMM Do YYYY, h:mm:ss A");
+
+  const datetime2 = blog.created;
+  const createDate = moment(datetime2).format("MMMM Do YYYY, h:mm:ss A");
+
   return (
-    <div className="note-container">
-      <h3 className="title">REACT PROJECT FOR BEGINNERS</h3>
-      <span className="d-flex justify-content-center">
-        <p className="note-date font-12 text-muted me-5">
-          {" "}
-          created: 11 March 2009
-        </p>
-        <p className="note-date font-12 text-muted me-5">
-          last updated: 11 March 2009
-        </p>
-      </span>
-      <span className="button-group">
-        <Link to="/edit-blog">
-          <button className="btn btn-primary">
-            <FiEdit />
-            <span>Edit</span>
-          </button>
-        </Link>
+    <>
+      <div className="note-container">
+        <h3 className="title">{blog.title}</h3>
+        <span className="d-flex justify-content-center">
+          <p className="note-date font-12 text-muted me-5">
+            {" "}
+            created: {createDate}
+          </p>
+          <p className="note-date font-12 text-muted me-5">
+            last updated: {updatedDate}
+          </p>
+        </span>
+        <span className="button-group">
+          <Link to={`/edit-blog/${slug}`}>
+            <button className="btn btn-primary">
+              <FiEdit />
+              <span>Edit</span>
+            </button>
+          </Link>
 
-        <button className="btn btn-danger">
-          <BiSolidTrashAlt />
-          <span>Delete</span>
-        </button>
-      </span>
-      <p className="description">
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-        accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
-        illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-        explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-        odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-        voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
-        quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam
-        eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
-        voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam
-        corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
-        Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse
-        quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo
-        voluptas nulla pariatur?
-      </p>
-    </div>
+          <button className="btn btn-danger" onClick={handleisOpen}>
+            <BiSolidTrashAlt />
+            <span>Delete</span>
+          </button>
+        </span>
+        <p className="description">{blog.body}</p>
+      </div>
+
+      {isOpenModal && (
+        <Modal handleisOpen={handleisOpen} deleteBlog={()=>deleteBlog(slug)} />
+      )}
+    </>
   );
 }

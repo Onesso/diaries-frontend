@@ -1,18 +1,44 @@
 import React from "react";
 import "./AddBlogPage.css";
-export default function AddBlogPage() {
+import { useState } from "react";
+import { useNavigate } from "react-router";
+
+export default function AddBlogPage({ addBlog }) {
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+  const [category, setCategory] = useState("");
+
+  const navigate = useNavigate();
+
+  const newBlog = {
+    title: title,
+    body: body,
+    catgory: category,
+  };
+
+  const handlsubmit = (e) => {
+    e.preventDefault();
+    if (!title || !body || !category) {
+      console.log("All fields are required!");
+      return;
+    }
+    addBlog(newBlog);
+    navigate("/");
+  };
+
   return (
-    <form>
+    <form onSubmit={handlsubmit}>
       <h5>Add New Blog</h5>
       <div className="mb-3">
         <label htmlFor="exampleFormControlInput1" className="form-label">
           Title
         </label>
         <input
-          type="email"
           className="form-control"
           id="exampleFormControlInput1"
           placeholder="Enter blogs's title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
       </div>
 
@@ -25,6 +51,8 @@ export default function AddBlogPage() {
           id="exampleFormControlTextarea1"
           rows={4}
           placeholder="Enter blog's content"
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
         ></textarea>
       </div>
 
@@ -36,20 +64,22 @@ export default function AddBlogPage() {
           className="form-select"
           aria-label="Default select example"
           style={{ height: "40px" }}
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
         >
-          <option selected>Pick a category</option>
-          <option value="1">EDUCATION</option>
-          <option value="2">BITCOIN</option>
-          <option value="3">GAMING</option>
-          <option value="4">DATA ENGINEERING</option>
-          <option value="5">TYPESCRIPT</option>
-          <option value="6">CYBERSECURITY</option>
-          <option value="7">CROSS PLATFORM</option>
-          <option value="8">FRONTEND</option>
-          <option value="9">BACKEND</option>
-          <option value="10">QUANTUM</option>
-          <option value="11">MECHANICAL</option>
-          <option value="12">IOT</option>
+          <option value="">Pick a category</option>
+          <option value="EDUCATION">EDUCATION</option>
+          <option value="BITCOIN">BITCOIN</option>
+          <option value="GAMING">GAMING</option>
+          <option value="ENGINEERING">DATA ENGINEERING</option>
+          <option value="TYPESCRIPT">TYPESCRIPT</option>
+          <option value="CYBERSECURITY">CYBERSECURITY</option>
+          <option value="CROSS PLATFORM">CROSS PLATFORM</option>
+          <option value="FRONTEND">FRONTEND</option>
+          <option value="BACKEND">BACKEND</option>
+          <option value="QUANTUM">QUANTUM</option>
+          <option value="MECHANICAL">MECHANICAL</option>
+          <option value="IOT">IOT</option>
         </select>
       </div>
 
