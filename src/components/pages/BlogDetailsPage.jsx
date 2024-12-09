@@ -49,6 +49,12 @@ export default function BlogDetails({ deleteBlog }) {
             last updated: {updatedDate}
           </p>
         </span>
+        {/* <span className="button-group">
+          <button className="btn btn-primary">
+            <FiEdit />
+            <span>subscribe</span>
+          </button>
+        </span> */}
         <span className="button-group">
           <Link to={`/edit-blog/${slug}`}>
             <button className="btn btn-primary">
@@ -66,7 +72,10 @@ export default function BlogDetails({ deleteBlog }) {
       </div>
 
       {isOpenModal && (
-        <Modal handleisOpen={handleisOpen} deleteBlog={()=>deleteBlog(slug)} />
+        <Modal
+          handleisOpen={handleisOpen}
+          deleteBlog={() => deleteBlog(slug)}
+        />
       )}
     </>
   );

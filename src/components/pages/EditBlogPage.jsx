@@ -48,7 +48,7 @@ export default function EditBlogPage({ updateBlog }) {
   return (
     <form
       onSubmit={handleSubmit}
-      action={`http://127.0.0.1:8000/blog/${slug}/`}
+      
     >
       <h5>Update Blog</h5>
       <div className="mb-3">

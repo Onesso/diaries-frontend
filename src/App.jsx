@@ -18,11 +18,17 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
   const [blog, setBlog] = useState([]);
-  const [filterText, setFilterText] = useState("")
+  const [filterText, setFilterText] = useState("");
 
-  const handleFilterText = (val) => {
+  // const handleFilterText = (val) => {
+  //   setFilterText(val);
+  // };
 
-  }
+  //filter text
+  // const filteredBlog =
+  //   filterText === "EDUCATION"
+  //     ? blog.filter((blog) => blog.category == "EDUCATION")
+  //     : blog;
 
   //geting all the blogs
   useEffect(() => {
@@ -38,23 +44,40 @@ export default function App() {
   }, []);
 
   //post new blog function
-  const addBlog = (data) => {
-    axios
-      .post("http://127.0.0.1:8000/blog/", data)
-      .then((res) => {
-        setBlog([...blog, data]);
-        toast.success("Blog added");
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+  // const addBlog = (data) => {
+  //   console.log("what i have received about to post", data);
+  //   axios
+  //     .post("http://127.0.0.1:8000/blog/", data)
+  //     .then((res) => {
+
+  //       toast.success("Blog added");
+  //       console.log(res.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.message);
+  //     });
+  // };
+
+  const addBlog = async (data) => {
+    try {
+      console.log("Data received, about to post:", data);
+      const res = await axios.post("http://127.0.0.1:8000/blog/", data);
+      toast.success("Blog added successfully!");
+      console.log("Response data:", res.data);
+    } catch (error) {
+      toast.error("Failed to add blog. Please try again.");
+      if (error.response) {
+        console.error("Error response:", error.response.data);
+      } else {
+        console.error("Error message:", error.message);
+      }
+    }
   };
 
   //update blog funtion
   const updateBlog = (data, slug) => {
     axios
-      .put(`http://127.0.0.1:8000/blog/${slug}`, data)
+      .put(`http://127.0.0.1:8000/blog/${slug}/`, data)
       .then((res) => {
         console.log(res.data);
         toast.success("Blog updated successfully ");
@@ -66,7 +89,7 @@ export default function App() {
 
   //delete blog
   const deleteBlog = (slug) => {
-    axios.delete(`http://127.0.0.1:8000/blog/${slug}`).catch((error) => {
+    axios.delete(`http://127.0.0.1:8000/blog/${slug}/`).catch((error) => {
       console.log(error.message);
     });
   };

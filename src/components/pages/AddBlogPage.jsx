@@ -13,7 +13,7 @@ export default function AddBlogPage({ addBlog }) {
   const newBlog = {
     title: title,
     body: body,
-    catgory: category,
+    category: category,
   };
 
   const handlsubmit = (e) => {
@@ -22,6 +22,7 @@ export default function AddBlogPage({ addBlog }) {
       console.log("All fields are required!");
       return;
     }
+    console.log("just picking before sending it to the post endpoint",newBlog)
     addBlog(newBlog);
     navigate("/");
   };
@@ -67,7 +68,7 @@ export default function AddBlogPage({ addBlog }) {
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
-          <option value="">Pick a category</option>
+           <option value="">Pick a category</option>
           <option value="EDUCATION">EDUCATION</option>
           <option value="BITCOIN">BITCOIN</option>
           <option value="GAMING">GAMING</option>

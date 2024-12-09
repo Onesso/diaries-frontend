@@ -7,20 +7,21 @@ export default function Filter() {
         className="form-select"
         aria-label="Default select example"
         style={{ height: "50px" }}
+       
       >
         <option selected>Filter Blogs</option>
-        <option value="1">EDUCATION</option>
-        <option value="2">BITCOIN</option>
-        <option value="3">GAMING</option>
-        <option value="4">DATA ENGINEERING</option>
-        <option value="5">TYPESCRIPT</option>
-        <option value="6">CYBERSECURITY</option>
-        <option value="7">CROSS PLATFORM</option>
-        <option value="8">FRONTEND</option>
-        <option value="9">BACKEND</option>
-        <option value="10">QUANTUM</option>
-        <option value="11">MECHANICAL</option>
-        <option value="12">IOT</option>
+        <option value="EDUCATION">EDUCATION</option>
+        <option value="BITCOIN">BITCOIN</option>
+        <option value="GAMING">GAMING</option>
+        <option value="DATA ENGINEERING">DATA ENGINEERING</option>
+        <option value="TYPESCRIPT">TYPESCRIPT</option>
+        <option value="CYBERSECURITY">CYBERSECURITY</option>
+        <option value="CROSS PLATFORM">CROSS PLATFORM</option>
+        <option value="FRONTEND">FRONTEND</option>
+        <option value="BACKEND">BACKEND</option>
+        <option value="QUANTUM">QUANTUM</option>
+        <option value="MECHANICAL">MECHANICAL</option>
+        <option value="IOT">IOT</option>
       </select>
     </div>
   );
