@@ -1,13 +1,13 @@
 import React from "react";
 
-export default function Filter() {
+export default function Filter({ handleFilterText }) {
   return (
     <div className="container" style={{ width: "500px", margin: "20px auto" }}>
       <select
         className="form-select"
         aria-label="Default select example"
         style={{ height: "50px" }}
-       
+        onChange={(e)=> handleFilterText(e.target.value)}
       >
         <option selected>Filter Blogs</option>
         <option value="EDUCATION">EDUCATION</option>

@@ -19,16 +19,59 @@ import "react-toastify/dist/ReactToastify.css";
 export default function App() {
   const [blog, setBlog] = useState([]);
   const [filterText, setFilterText] = useState("");
+  const [searchText, setSearchText] = useState("");
 
-  // const handleFilterText = (val) => {
-  //   setFilterText(val);
-  // };
+  const handleFilterText = (val) => {
+    setFilterText(val);
+    console.log(val);
+  };
+
+  const handleSearchText = (val) => {
+    setSearchText(val);
+    console.log("searched values: ", searchText);
+  };
+
+  //search api call
+  useEffect(() => {
+    if (searchText.length < 3) return;
+    axios
+      .get(`http://127.0.0.1:8000/blog-search/?search=${searchText}`)
+      .then((res) => {
+        console.log(res.data);
+        setBlog(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [searchText]);
 
   //filter text
-  // const filteredBlog =
-  //   filterText === "EDUCATION"
-  //     ? blog.filter((blog) => blog.category == "EDUCATION")
-  //     : blog;
+  const filteredBlog =
+    filterText === "EDUCATION"
+      ? blog.filter((blog) => blog.category == "EDUCATION")
+      : filterText === "BITCOIN"
+      ? blog.filter((blog) => blog.category == "BITCOIN")
+      : filterText === "GAMING"
+      ? blog.filter((blog) => blog.category == "GAMING")
+      : filterText === "DATA ENGINEERING"
+      ? blog.filter((blog) => blog.category == "DATA ENGINEERING")
+      : filterText === "TYPESCRIPT"
+      ? blog.filter((blog) => blog.category == "TYPESCRIPT")
+      : filterText === "CYBERSECURITY"
+      ? blog.filter((blog) => blog.category == "CYBERSECURITY")
+      : filterText === "CROSS PLATFORM"
+      ? blog.filter((blog) => blog.category == "CROSS PLATFORM")
+      : filterText === "FRONTEND"
+      ? blog.filter((blog) => blog.category == "FRONTEND")
+      : filterText === "BACKEND"
+      ? blog.filter((blog) => blog.category == "BACKEND")
+      : filterText === "QUANTUM"
+      ? blog.filter((blog) => blog.category == "QUANTUM")
+      : filterText === "MECHANICAL"
+      ? blog.filter((blog) => blog.category == "MECHANICAL")
+      : filterText === "IOT"
+      ? blog.filter((blog) => blog.category == "IOT")
+      : blog;
 
   //geting all the blogs
   useEffect(() => {
@@ -44,20 +87,6 @@ export default function App() {
   }, []);
 
   //post new blog function
-  // const addBlog = (data) => {
-  //   console.log("what i have received about to post", data);
-  //   axios
-  //     .post("http://127.0.0.1:8000/blog/", data)
-  //     .then((res) => {
-
-  //       toast.success("Blog added");
-  //       console.log(res.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error.message);
-  //     });
-  // };
-
   const addBlog = async (data) => {
     try {
       console.log("Data received, about to post:", data);
@@ -96,8 +125,21 @@ export default function App() {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<Homepage blog={blog} />} />
+      <Route
+        path="/"
+        element={
+          <MainLayout
+            searchText={searchText}
+            handleSearchText={handleSearchText}
+          />
+        }
+      >
+        <Route
+          index
+          element={
+            <Homepage blog={filteredBlog} handleFilterText={handleFilterText} />
+          }
+        />
         <Route path="/add-blog" element={<AddBlogPage addBlog={addBlog} />} />
         <Route
           path="/blogs/:slug"

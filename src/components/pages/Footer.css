@@ -1,0 +1,17 @@
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 150px;
+  height: 40vh;
+  background-color: rgb(248, 253, 252);
+}
+
+.linksSection {
+  display: flex;
+  cursor: pointer;
+  li {
+    list-style: none;
+    margin-right: 25px;
+  }
+}
